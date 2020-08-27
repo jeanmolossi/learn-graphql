@@ -7,7 +7,7 @@ I made this project like a playground, used to myself learn how to use the Graph
 - [Screens](#point_right-screens)
 - [Features](#rocket-features)
 - [Installation](#construction_worker-installation)
-- [Getting Started](#runner_getting-started)
+- [Getting Started](#runner-getting-started)
 - [Found a bug? Missing a specific feature?](#bug-issues)
 - [Contributing](#tada-contributing)
 - [License](#closed_book-license)
