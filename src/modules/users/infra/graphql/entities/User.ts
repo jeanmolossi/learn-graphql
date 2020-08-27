@@ -1,36 +1,26 @@
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  CreateDateColumn,
-  UpdateDateColumn,
-} from 'typeorm';
-import { ObjectType, Field, ID } from 'type-graphql';
+import { Field, ID, InterfaceType } from 'type-graphql';
+import Posts from '@modules/posts/infra/typeorm/entities/Posts';
 
-@ObjectType()
-@Entity('users')
-export default class User {
+@InterfaceType()
+export default abstract class UserGQL {
   @Field(() => ID)
-  @PrimaryGeneratedColumn('increment')
   id: number;
 
   @Field(() => String)
-  @Column()
   name: string;
 
   @Field(() => String)
-  @Column()
   email: string;
 
   @Field(() => String)
-  @Column()
   non_encrypted_password: string;
 
+  @Field(() => [Posts])
+  posts: Posts[];
+
   @Field(() => Date)
-  @CreateDateColumn()
   created_at: Date;
 
   @Field(() => Date)
-  @UpdateDateColumn()
   updated_at: Date;
 }

@@ -1,7 +1,7 @@
 import { Repository, getRepository } from 'typeorm';
 
 import IUserRepository from '@modules/users/infra/repositories/IUserRepository';
-import User from '@modules/users/infra/graphql/entities/User';
+import User from '@modules/users/infra/typeorm/entities/User';
 import {
   CreateUserInput,
   UpdateUserInput,
@@ -15,7 +15,9 @@ export default class UserRepository implements IUserRepository {
   }
 
   public async findAll(): Promise<User[]> {
-    return this.ormRepository.find();
+    return this.ormRepository.find({
+      relations: ['posts'],
+    });
   }
 
   public async createUser({

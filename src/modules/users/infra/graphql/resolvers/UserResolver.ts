@@ -1,8 +1,8 @@
 import { Query, Mutation, Arg } from 'type-graphql';
 
-import IUserRepository from '@modules/users/infra/typeorm/repositories/RepositoriesModels/IUserRepository';
+import IUserRepository from '@modules/users/infra/repositories/IUserRepository';
 import UserRepository from '@modules/users/infra/typeorm/repositories/UserRepository';
-import User from '../entities/User';
+import User from '@modules/users/infra/typeorm/entities/User';
 
 import { CreateUserInput, UpdateUserInput } from '../inputs';
 
@@ -12,7 +12,7 @@ export default class UserResolver {
   }
 
   @Query(() => [User])
-  findAll() {
+  findAllUsers() {
     return this.userRepository.findAll();
   }
 
