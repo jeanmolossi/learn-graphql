@@ -52,6 +52,7 @@ src/
           resolvers/
         repositories/
         typeorm/
+          entities/
           repositories/
   shared/
     infra/
@@ -83,10 +84,11 @@ LICENSE.md
       - `graphql/`. That are the graphql layer, all the contents of a specific module depends of the graphql should be inside that folder
       - `repositories/`. That contains de model of the repositories should be implements
     - Inside `graphql/`
-      - `entities/` GraphQL entities from specific module;
+      - `entities/` GraphQL entities from specific module - **That creates the interface to Typeorm**;
       - `inputs/` GraphQL inputs to do the query;
       - `resolvers/` GraphQL resolvers;
     - Inside `typeorm/`
+      - `entities/` Typeorm entities from specific module - **Thats implements GraphQL entity**;
       - `repositories/` Typeorm repositories. That should be implements the models are inside the `/infra/repositories/`
 
 # :bug: Issues
