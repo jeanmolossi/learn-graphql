@@ -7,6 +7,8 @@ import { buildSchemaSync, BuildSchemaOptions } from 'type-graphql';
 import '@database/connection';
 
 import { DefaultResolver } from '@shared/infra/graphql/resolvers';
+import { UserResolver } from '@modules/users/infra/graphql/resolvers';
+
 import Routes from '@shared/infra/http/routes';
 
 interface ApiOptions {
@@ -71,5 +73,7 @@ class Server {
   }
 }
 
-const app = new Server();
+const app = new Server({
+  resolvers: [UserResolver],
+});
 app.run();
