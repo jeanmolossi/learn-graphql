@@ -35,7 +35,7 @@ Run the following command **on project root folder** in order to start the appli
   yarn start
 ```
 
-## :eyes: Lookup at the structures folder
+## :open_file_folder: Lookup at the structures folder
 
 ```
 src/
