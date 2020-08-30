@@ -6,12 +6,13 @@
   "scripts": {
     "start:express": "ts-node-dev -r tsconfig-paths/register --transpile-only --ignore-watch node_modules --clear --respawn src/shared/infra/http/server.express.ts",
     "start:apollo": "ts-node-dev -r tsconfig-paths/register --transpile-only --ignore-watch node_modules --clear --respawn src/shared/infra/http/server.apollo.ts",
-    "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js",
+    "typeorm": "node --require ts-node/register -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
     "docker:db": "docker start graphql-redis-cache"
   },
   "devDependencies": {
     "@types/express": "^4.17.7",
     "@types/ioredis": "^4.17.3",
+    "@types/jsonwebtoken": "^8.5.0",
     "ts-node": "^9.0.0",
     "ts-node-dev": "^1.0.0-pre.61",
     "typescript": "^4.0.2"
@@ -25,6 +26,7 @@
     "express-graphql": "^0.11.0",
     "graphql": "^15.3.0",
     "ioredis": "^4.17.3",
+    "jsonwebtoken": "^8.5.1",
     "reflect-metadata": "^0.1.13",
     "sqlite3": "^5.0.0",
     "tsconfig-paths": "^3.9.0",

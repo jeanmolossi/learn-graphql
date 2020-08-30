@@ -9,8 +9,11 @@ import { useContainer } from 'typeorm';
 import '@database/connection';
 
 import { DefaultResolver } from '@shared/infra/graphql/resolvers';
-import { UserResolver } from '@shared/infra/graphql/resolvers';
-import { PostsResolver } from '@shared/infra/graphql/resolvers';
+import {
+  UserResolver,
+  CommentsResolver,
+  PostsResolver,
+} from '@shared/infra/graphql/resolvers';
 
 import Routes from '@shared/infra/http/routes';
 
@@ -41,7 +44,7 @@ class Server {
 
     this.apolloServer = new ApolloServer({
       schema: buildSchemaSync({
-        resolvers: [UserResolver, PostsResolver],
+        resolvers: [UserResolver, PostsResolver, CommentsResolver],
         container: Container,
         validate: false,
       }),
