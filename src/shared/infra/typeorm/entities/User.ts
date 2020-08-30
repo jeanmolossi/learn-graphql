@@ -9,8 +9,8 @@ import {
 } from 'typeorm';
 import { ObjectType } from 'type-graphql';
 
-import UserGQL from '@modules/users/infra/graphql/entities/User';
-import Posts from '@modules/posts/infra/typeorm/entities/Posts';
+import UserGQL from '@shared/infra/graphql/entities/User';
+import Posts from '@shared/infra/typeorm/entities/Posts';
 
 @ObjectType({ implements: UserGQL })
 @Entity('users')

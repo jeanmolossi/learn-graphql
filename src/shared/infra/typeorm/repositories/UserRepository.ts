@@ -1,12 +1,11 @@
 import { Repository, EntityRepository } from 'typeorm';
+import { Service } from 'typedi';
 
 import IUserRepository from '@modules/users/infra/repositories/IUserRepository';
-import User from '@modules/users/infra/typeorm/entities/User';
-import {
-  CreateUserInput,
-  UpdateUserInput,
-} from '@modules/users/infra/graphql/inputs';
+import User from '@shared/infra/typeorm/entities/User';
+import { CreateUserInput, UpdateUserInput } from '@shared/infra/graphql/inputs';
 
+@Service()
 @EntityRepository(User)
 export default class UserRepository
   extends Repository<User>

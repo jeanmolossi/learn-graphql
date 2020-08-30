@@ -1,17 +1,16 @@
-import { Resolver, Query, Mutation, Arg, Ctx } from 'type-graphql';
+import { Resolver, Query, Mutation, Arg } from 'type-graphql';
 import { InjectRepository } from 'typeorm-typedi-extensions';
 import { Inject } from 'typedi';
 
-import PostsRepository from '@modules/posts/infra/typeorm/repositories/PostsRepository';
-import Posts from '@modules/posts/infra/typeorm/entities/Posts';
+import PostsRepository from '@shared/infra/typeorm/repositories/PostsRepository';
+import Posts from '@shared/infra/typeorm/entities/Posts';
+import CacheProvider from '@shared/infra/providers/CacheProvider';
 
 import { CreatePostInput } from '../inputs';
-import { MyContext } from '@shared/infra/http/server.apollo';
-import CacheProvider from '@shared/infra/providers/CacheProvider';
 
 @Resolver()
 export default class PostsResolver {
-  @Inject('cacheProvider')
+  @Inject()
   private readonly cacheProvider: CacheProvider;
 
   private readonly cacheKey: string = 'postsResolver';
@@ -53,11 +52,17 @@ export default class PostsResolver {
   async createPost(@Arg('post') post: CreatePostInput) {
     const newPost = await this.postsRepository.createPost(post);
 
+    await this.cacheProvider.invalidateSingle(`${this.cacheKey}:findAllPosts`);
+
     return newPost;
   }
 
   @Mutation(() => Posts, { nullable: true })
   async excludePost(@Arg('post_id') post_id: number) {
+    await this.cacheProvider.invalidateSingle(
+      `${this.cacheKey}:post_id:${post_id}`
+    );
+    await this.cacheProvider.invalidateSingle(`${this.cacheKey}:findAllPosts`);
     return this.postsRepository.excludePost(post_id);
   }
 }

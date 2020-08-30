@@ -1,22 +1,22 @@
 import { Field, ID, InterfaceType } from 'type-graphql';
-
-import User from '@modules/users/infra/typeorm/entities/User';
+import Posts from '@shared/infra/typeorm/entities/Posts';
 
 @InterfaceType()
-export default abstract class PostsGQL {
+export default abstract class UserGQL {
   @Field(() => ID)
   id: number;
 
   @Field(() => String)
-  title: string;
+  name: string;
 
   @Field(() => String)
-  text: string;
+  email: string;
 
-  author: number;
+  @Field(() => String)
+  non_encrypted_password: string;
 
-  @Field(() => User)
-  authorInfo: User;
+  @Field(() => [Posts])
+  posts: Posts[];
 
   @Field(() => String)
   created_at: Date;

@@ -7,8 +7,8 @@ import { buildSchemaSync, BuildSchemaOptions } from 'type-graphql';
 import '@database/connection';
 
 import { DefaultResolver } from '@shared/infra/graphql/resolvers';
-import { UserResolver } from '@modules/users/infra/graphql/resolvers';
-import { PostsResolver } from '@modules/posts/infra/graphql/resolvers';
+import { UserResolver } from '@shared/infra/graphql/resolvers';
+import { PostsResolver } from '@shared/infra/graphql/resolvers';
 
 import Routes from '@shared/infra/http/routes';
 

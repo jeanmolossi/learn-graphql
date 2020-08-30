@@ -1,7 +1,7 @@
 import { Service } from 'typedi';
 import Redis, { Redis as RedisServer, RedisOptions } from 'ioredis';
 
-@Service('cacheProvider')
+@Service()
 export default class CacheProvider {
   private readonly cacheServer: RedisServer;
 
@@ -29,6 +29,7 @@ export default class CacheProvider {
       return null;
     }
 
+    console.log('Resposta do cache');
     const value = JSON.parse(data) as T;
 
     return value;

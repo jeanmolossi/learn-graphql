@@ -46,22 +46,20 @@ src/
   modules/
     module_name/
       infra/
-        graphql/
-          entities/
-          inputs/
-          resolvers/
         repositories/
-        typeorm/
-          entities/
-          repositories/
   shared/
     infra/
       http/
         server.ts
       graphql/
+        entities/
+        inputs/
         resolvers/
           helloworld.ts
           index.ts
+      typeorm/
+        entities/
+        repositories/
 .editorconfig
 .env
 .gitignore
@@ -78,18 +76,18 @@ LICENSE.md
 - `shared/` are the folders with the content that will be shared in all application
   - Inside that we have `infra/http/`. That are the http layer of the application
   - We have too `infra/graphql/`. That are the graphql layer, all the contents depends of the graphql should be inside that layer
-- `modules/` are the folders/layers from a specific module of the application.
-  - Inside that we have the specific module like `users/` that have:
-    - `infra/` which contains:
-      - `graphql/`. That are the graphql layer, all the contents of a specific module depends of the graphql should be inside that folder
-      - `repositories/`. That contains de model of the repositories should be implements
+    - `graphql/`. That are the graphql layer, all the contents of a specific module depends of the graphql should be inside that folder
     - Inside `graphql/`
       - `entities/` GraphQL entities from specific module - **That creates the interface to Typeorm**;
       - `inputs/` GraphQL inputs to do the query;
       - `resolvers/` GraphQL resolvers;
-    - Inside `typeorm/`
-      - `entities/` Typeorm entities from specific module - **Thats implements GraphQL entity**;
-      - `repositories/` Typeorm repositories. That should be implements the models are inside the `/infra/repositories/`
+  - Inside `typeorm/` are the repositories and the entities:
+    - `entities/` Typeorm entities from specific module - **Thats implements GraphQL entity**;
+    - `repositories/` Typeorm repositories. That should be implements the models are inside the `/infra/repositories/`
+- `modules/` are the folders/layers from a specific module of the application.
+  - Inside that we have the specific module like `users/` that have:
+    - `infra/` which contains:
+      - `repositories/`. That contains de model of the repositories should be implements
 
 # :bug: Issues
 

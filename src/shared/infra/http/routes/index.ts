@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import PostsRepository from '@modules/posts/infra/typeorm/repositories/PostsRepository';
-import UserRepository from '@modules/users/infra/typeorm/repositories/UserRepository';
+import PostsRepository from '@shared/infra/typeorm/repositories/PostsRepository';
+import UserRepository from '@shared/infra/typeorm/repositories/UserRepository';
 
 const routes = Router();
 

@@ -7,10 +7,10 @@ import {
   OneToOne,
   JoinColumn,
 } from 'typeorm';
-
-import User from '@modules/users/infra/typeorm/entities/User';
-import PostsGQL from '@modules/posts/infra/graphql/entities/Posts';
 import { ObjectType } from 'type-graphql';
+
+import User from '@shared/infra/typeorm/entities/User';
+import PostsGQL from '@shared/infra/graphql/entities/Posts';
 
 @ObjectType({ implements: PostsGQL })
 @Entity('posts')

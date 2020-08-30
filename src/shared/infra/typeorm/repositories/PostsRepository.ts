@@ -1,23 +1,29 @@
-import { Repository, EntityRepository } from 'typeorm';
-import { Service } from 'typedi';
-import { InjectRepository } from 'typeorm-typedi-extensions';
+import { Repository, EntityRepository, getCustomRepository } from 'typeorm';
+import { Service, Inject, InjectMany } from 'typedi';
 
 import IPostsRepository from '@modules/posts/infra/repositories/IPostsRepository';
-import Posts from '@modules/posts/infra/typeorm/entities/Posts';
-import User from '@modules/users/infra/typeorm/entities/User';
-import UserRepository from '@modules/users/infra/typeorm/repositories/UserRepository';
-import { CreatePostInput } from '@modules/posts/infra/graphql/inputs';
+import Posts from '@shared/infra/typeorm/entities/Posts';
+
+import { CreatePostInput } from '@shared/infra/graphql/inputs';
+import {
+  InjectManager,
+  OrmRepository,
+  OrmManager,
+  InjectRepository,
+} from 'typeorm-typedi-extensions';
+import UserRepository from './UserRepository';
 
 @Service()
 @EntityRepository(Posts)
 export default class PostsRepository
   extends Repository<Posts>
   implements IPostsRepository {
-  constructor(
-    @InjectRepository(User)
-    private readonly usersRepository: UserRepository
-  ) {
+  @InjectRepository(UserRepository)
+  private readonly userRepository: UserRepository;
+  constructor() {
     super();
+    this.userRepository = getCustomRepository(UserRepository);
+    return this;
   }
 
   public async findAll(): Promise<Posts[]> {
@@ -38,14 +44,18 @@ export default class PostsRepository
     text,
     author,
   }: CreatePostInput): Promise<Posts> {
-    const issetUser = await this.usersRepository.findOne(author);
+    const issetUser = await this.userRepository.findOne(author);
+
     if (!issetUser) throw new Error('Users not exists');
+
     const newPost = this.create({
       title,
       text,
-      author: issetUser.id,
+      author,
     });
+
     await this.save(newPost);
+
     return {
       ...newPost,
       authorInfo: issetUser,
@@ -57,8 +67,7 @@ export default class PostsRepository
       relations: ['authorInfo'],
     });
 
-    const deleted = await this.delete({ id: postId });
-    console.log(deleted);
+    await this.delete({ id: postId });
 
     return issetPost || null;
   }

@@ -3,19 +3,16 @@ import 'reflect-metadata';
 import express, { Express, Request, Response } from 'express';
 import { ApolloServer, ApolloServerExpressConfig } from 'apollo-server-express';
 import { buildSchemaSync } from 'type-graphql';
-import { RedisCache } from 'apollo-server-cache-redis';
-import { Container, Inject } from 'typedi';
+import { Container } from 'typedi';
 import { useContainer } from 'typeorm';
-import Redis, { Redis as RedisServerType } from 'ioredis';
 
 import '@database/connection';
 
 import { DefaultResolver } from '@shared/infra/graphql/resolvers';
-import { UserResolver } from '@modules/users/infra/graphql/resolvers';
-import { PostsResolver } from '@modules/posts/infra/graphql/resolvers';
+import { UserResolver } from '@shared/infra/graphql/resolvers';
+import { PostsResolver } from '@shared/infra/graphql/resolvers';
 
 import Routes from '@shared/infra/http/routes';
-import CacheProvider from '../providers/CacheProvider';
 
 interface ApiOptions {
   url: string;
@@ -46,6 +43,7 @@ class Server {
       schema: buildSchemaSync({
         resolvers: [UserResolver, PostsResolver],
         container: Container,
+        validate: false,
       }),
       context: ({ req, res }): MyContext => {
         return {
