@@ -4,10 +4,11 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start:express": "ts-node-dev -r tsconfig-paths/register --transpile-only --ignore-watch node_modules --clear --respawn src/shared/infra/http/server.express.ts",
-    "start:apollo": "ts-node-dev -r tsconfig-paths/register --transpile-only --ignore-watch node_modules --clear --respawn src/shared/infra/http/server.apollo.ts",
+    "start": "ts-node-dev -r tsconfig-paths/register --transpile-only --ignore-watch node_modules --clear --respawn src/shared/infra/http/server.ts",
     "typeorm": "node --require ts-node/register -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
-    "docker:db": "docker start graphql-redis-cache"
+    "docker:install": "docker run --name graphql-redis-cache -p 6379:6379 -d redis:alpine",
+    "docker:up": "docker start graphql-redis-cache",
+    "docker:down": "docker stop graphql-redis-cache"
   },
   "devDependencies": {
     "@types/express": "^4.17.7",

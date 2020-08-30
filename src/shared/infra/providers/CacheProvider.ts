@@ -5,10 +5,12 @@ import Redis, { Redis as RedisServer, RedisOptions } from 'ioredis';
 export default class CacheProvider {
   private readonly cacheServer: RedisServer;
 
+  public expirationTimeMs: number = Number(process.env.CACHE_EXT) || 300; // EXPIRATION TIME DEFAULT 300 = 5 MINUTES
+
   constructor(options?: RedisOptions) {
     this.cacheServer = new Redis({
-      host: 'localhost',
-      port: 6379,
+      host: process.env.CACHE_HOST || 'localhost',
+      port: Number(process.env.CACHE_PORT) || 6379,
       ...options,
     });
   }
@@ -16,7 +18,12 @@ export default class CacheProvider {
   async set<T>(key: string, value: T): Promise<T> {
     if (!value) return value;
 
-    await this.cacheServer.set(`${key}`, JSON.stringify(value), 'EX', 300);
+    await this.cacheServer.set(
+      `${key}`,
+      JSON.stringify(value),
+      'EX',
+      this.expirationTimeMs
+    );
 
     return value;
   }

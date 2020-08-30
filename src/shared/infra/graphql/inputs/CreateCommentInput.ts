@@ -5,7 +5,6 @@ export default class CreateCommentInput {
   @Field(() => String)
   text: string;
 
-  @Field(() => Number)
   author_id: number;
 
   @Field(() => Number)

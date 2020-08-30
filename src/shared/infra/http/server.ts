@@ -15,8 +15,6 @@ import {
   PostsResolver,
 } from '@shared/infra/graphql/resolvers';
 
-import Routes from '@shared/infra/http/routes';
-
 interface ApiOptions {
   url: string;
   port: number | 3333;
@@ -66,15 +64,10 @@ class Server {
     this.app.use(express.json());
   }
 
-  routes() {
-    this.app.use(Routes);
-  }
-
   run() {
     this.app = express();
 
     this.middlewares();
-    this.routes();
 
     this.app.listen(this.apiOptions.port, () => {
       console.log(`\n\n🚀 >> Server started at: ${this.apiOptions.port}`);

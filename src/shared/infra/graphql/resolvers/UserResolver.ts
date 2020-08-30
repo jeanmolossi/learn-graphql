@@ -18,9 +18,11 @@ import User from '@shared/infra/typeorm/entities/User';
 import Posts from '@shared/infra/typeorm/entities/Posts';
 import PostsRepository from '@shared/infra/typeorm/repositories/PostsRepository';
 import { AuthMiddleware } from '@shared/infra/graphql/middlewares/AuthMiddleware';
-import { MyContext } from '@shared/infra/http/server.apollo';
+import { MyContext } from '@shared/infra/http/server';
 import { CreateUserInput, UpdateUserInput } from '../inputs';
 import LoginUserInput from '../inputs/LoginUserInput';
+import { Inject } from 'typedi';
+import CacheProvider from '@shared/infra/providers/CacheProvider';
 
 @ObjectType()
 class LoginAnswer {
@@ -33,6 +35,11 @@ class LoginAnswer {
 
 @Resolver(() => User)
 export default class UserResolver {
+  @Inject()
+  private readonly cacheProvider: CacheProvider;
+
+  private cacheKey: string = `userResolver`;
+
   constructor(
     @InjectRepository(UserRepository)
     private readonly userRepository: UserRepository,
@@ -51,8 +58,18 @@ export default class UserResolver {
 
   @Query(() => [User])
   @UseMiddleware(AuthMiddleware)
-  findAllUsers() {
-    return this.userRepository.findAll();
+  async findAllUsers() {
+    let usersList = await this.cacheProvider.recover<User[]>(
+      `${this.cacheKey}:findAllUsers`
+    );
+
+    if (!usersList) {
+      usersList = await this.userRepository.findAll();
+
+      await this.cacheProvider.set(`${this.cacheKey}:findAllUsers`, usersList);
+    }
+
+    return usersList;
   }
 
   @Mutation(() => LoginAnswer)

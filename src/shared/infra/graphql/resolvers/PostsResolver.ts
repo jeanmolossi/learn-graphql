@@ -21,7 +21,7 @@ import UserRepository from '@shared/infra/typeorm/repositories/UserRepository';
 import CommentsRepository from '@shared/infra/typeorm/repositories/CommentsRepository';
 import Comments from '@shared/infra/typeorm/entities/Comments';
 import { AuthMiddleware } from '../middlewares/AuthMiddleware';
-import { MyContext } from '@shared/infra/http/server.apollo';
+import { MyContext } from '@shared/infra/http/server';
 
 @Resolver(() => Posts)
 export default class PostsResolver {
