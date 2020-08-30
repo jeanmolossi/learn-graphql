@@ -8,6 +8,5 @@ export default class CreatePostInput {
   @Field(() => String)
   text: string;
 
-  @Field(() => Number)
   author: number;
 }
