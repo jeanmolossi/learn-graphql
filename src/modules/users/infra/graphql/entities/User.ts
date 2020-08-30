@@ -18,9 +18,9 @@ export default abstract class UserGQL {
   @Field(() => [Posts])
   posts: Posts[];
 
-  @Field(() => Date)
+  @Field(() => String)
   created_at: Date;
 
-  @Field(() => Date)
+  @Field(() => String)
   updated_at: Date;
 }

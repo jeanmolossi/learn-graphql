@@ -13,15 +13,14 @@ export default abstract class PostsGQL {
   @Field(() => String)
   text: string;
 
-  @Field(() => Number)
   author: number;
 
   @Field(() => User)
   authorInfo: User;
 
-  @Field(() => Date)
+  @Field(() => String)
   created_at: Date;
 
-  @Field(() => Date)
+  @Field(() => String)
   updated_at: Date;
 }
