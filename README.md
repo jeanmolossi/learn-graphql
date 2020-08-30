@@ -2,10 +2,10 @@
 
 I made this project like a playground, used to myself learn how to use the GraphQL and i have tryied implements this with Typeorm and express and I like the results.
 
+[Go to documentation in Português (Brasil)](./README-PT.md)
+
 # :pushpin: Table of Contents
 
-- [Screens](#point_right-screens)
-- [Features](#rocket-features)
 - [Installation](#construction_worker-installation)
 - [Getting Started](#runner-getting-started)
 - [Found a bug? Missing a specific feature?](#bug-issues)
@@ -14,7 +14,7 @@ I made this project like a playground, used to myself learn how to use the Graph
 
 # :construction_worker: Installation
 
-**You need to install [Node.js](https://nodejs.org/en/download/), [Yarn](https://yarnpkg.com/) first and then, in order to clone the project via HTTPS, run this command:**
+**You need to install [Node.js](https://nodejs.org/en/download/), [Yarn](https://yarnpkg.com/), [Docker](https://docs.docker.com/get-docker/) first and then, in order to clone the project via HTTPS, run this command:**
 
 `git clone https://github.com/jeanmolossi/learn-graphql.git`
 
@@ -26,6 +26,10 @@ I made this project like a playground, used to myself learn how to use the Graph
 
 `yarn typeorm migration:run`
 
+**Setup the Redis Cache Container**
+
+`yarn docker:install`
+
 # :runner: Getting Started
 
 Run the following command **on project root folder** in order to start the application in a development environment:
@@ -35,10 +39,16 @@ Run the following command **on project root folder** in order to start the appli
   yarn start
 ```
 
+If you have issues with container try:
+
+`yarn docker:up`
+
 ## :open_file_folder: Lookup at the structures folder
 
 ```
 src/
+  @types/
+    index.d.ts
   database/
     migrations/
     connection.ts
@@ -73,6 +83,7 @@ LICENSE.md
 
 ### :man_teacher: Explaining folders
 
+- `@types/` have the index definition file. Add the user in request of Express
 - `shared/` are the folders with the content that will be shared in all application
   - Inside that we have `infra/http/`. That are the http layer of the application
   - We have too `infra/graphql/`. That are the graphql layer, all the contents depends of the graphql should be inside that layer
@@ -81,8 +92,8 @@ LICENSE.md
       - `entities/` GraphQL entities from specific module - **That creates the interface to Typeorm**;
       - `inputs/` GraphQL inputs to do the query;
       - `resolvers/` GraphQL resolvers;
-  - Inside `typeorm/` are the repositories and the entities:
-    - `entities/` Typeorm entities from specific module - **Thats implements GraphQL entity**;
+  - Inside `infra/typeorm/` are the repositories and the entities:
+    - `entities/` Typeorm entities from specific module - **Thats should implements GraphQL entity**;
     - `repositories/` Typeorm repositories. That should be implements the models are inside the `/infra/repositories/`
 - `modules/` are the folders/layers from a specific module of the application.
   - Inside that we have the specific module like `users/` that have:
