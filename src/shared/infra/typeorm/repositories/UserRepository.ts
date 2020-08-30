@@ -11,9 +11,7 @@ export default class UserRepository
   extends Repository<User>
   implements IUserRepository {
   public async findAll(): Promise<User[]> {
-    return this.find({
-      relations: ['posts'],
-    });
+    return this.find();
   }
 
   public async createUser({
