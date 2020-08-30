@@ -15,7 +15,7 @@ export default abstract class UserGQL {
   @Field(() => String)
   non_encrypted_password: string;
 
-  @Field(() => [Posts])
+  @Field(() => [Posts], { nullable: true })
   posts: Posts[];
 
   @Field(() => String)
