@@ -1,7 +1,7 @@
 {
   "name": "learn-graphql",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/shared/infra/http/server.ts",
   "license": "MIT",
   "scripts": {
     "start": "ts-node-dev -r tsconfig-paths/register --transpile-only --ignore-watch node_modules --clear --respawn src/shared/infra/http/server.ts",
@@ -24,7 +24,6 @@
     "class-validator": "^0.12.2",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "express-graphql": "^0.11.0",
     "graphql": "^15.3.0",
     "ioredis": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
